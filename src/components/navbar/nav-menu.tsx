@@ -9,21 +9,19 @@ import {
 import { cn } from "@/lib/utils";
 import clsx from "clsx";
 
-type NavMenuProps = React.ComponentProps<typeof NavigationMenu> & {
-  orientation?: "horizontal" | "vertical";
-  className?: string;
-};
+const links = [
+  { name: "Home", href: "/#home" },
+  { name: "Features", href: "/#features" },
+];
 
 export function NavMenu({
   orientation = "horizontal",
   className,
   ...props
-}: NavMenuProps) {
-  const links = [
-    { name: "Home", href: "/#home" },
-    { name: "Features", href: "/#features" },
-  ];
-
+}: React.ComponentProps<typeof NavigationMenu> & {
+  orientation?: "horizontal" | "vertical";
+  className?: string;
+}) {
   return (
     <NavigationMenu {...props}>
       <NavigationMenuList
