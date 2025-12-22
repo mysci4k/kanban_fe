@@ -1,5 +1,45 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { IconBolt, IconDeviceMobile, IconLayout } from "@tabler/icons-react";
+import { Variants } from "motion";
+import * as motion from "motion/react-client";
+
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.3, delayChildren: 0.1 },
+  },
+};
+
+const title: Variants = {
+  hidden: { opacity: 0, x: -40, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const description: Variants = {
+  hidden: { opacity: 0, x: 40, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 40, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
 
 const features = [
   {
@@ -21,36 +61,47 @@ const features = [
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-16 md:py-32">
+    <motion.section
+      variants={container}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      id="features"
+      className="py-16 md:py-32"
+    >
       <div className="@container mx-auto max-w-5xl px-6">
         <div className="text-center">
-          <h2 className="text-4xl font-semibold text-balance lg:text-5xl">
+          <motion.h2
+            variants={title}
+            className="text-4xl font-semibold text-balance lg:text-5xl"
+          >
             Built to cover your needs
-          </h2>
-          <p className="mt-4">Everything you need, nothing you don&apos;t.</p>
+          </motion.h2>
+          <motion.p variants={description} className="mt-4">
+            Everything you need, nothing you don&apos;t.
+          </motion.p>
         </div>
         <div className="mx-auto mt-8 grid max-w-sm gap-6 [--color-background:var(--color-muted)] [--color-card:var(--color-muted)] *:text-center md:mt-16 @min-4xl:max-w-full @min-4xl:grid-cols-3 dark:[--color-muted:var(--color-zinc-900)]">
           {features.map((feature) => (
-            <Card
-              key={feature.header}
-              className="group border-0 bg-transparent shadow-none ring-0"
-            >
-              <CardHeader className="pb-3">
-                <CardDecorator>
-                  <feature.icon className="size-6" aria-hidden />
-                </CardDecorator>
+            <motion.div variants={item} key={feature.header}>
+              <Card className="group border-0 bg-transparent shadow-none ring-0">
+                <CardHeader className="pb-3">
+                  <CardDecorator>
+                    <feature.icon className="size-6" aria-hidden />
+                  </CardDecorator>
 
-                <h3 className="mt-6 font-bold">{feature.header}</h3>
-              </CardHeader>
+                  <h3 className="mt-6 font-bold">{feature.header}</h3>
+                </CardHeader>
 
-              <CardContent>
-                <p className="text-sm">{feature.content}</p>
-              </CardContent>
-            </Card>
+                <CardContent>
+                  <p className="text-sm">{feature.content}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
