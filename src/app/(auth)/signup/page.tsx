@@ -99,7 +99,7 @@ export default function SignupPage() {
       >
         <div className="p-6">
           <div className="mb-6 text-center">
-            <h1 className="mb-1 text-xl font-semibold">Welcome to Kanblast</h1>
+            <h1 className="mb-1 text-xl font-semibold">Welcome to Kanblast!</h1>
             <p>Create an account to get started</p>
           </div>
 
