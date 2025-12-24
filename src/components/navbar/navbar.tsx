@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeSwitch } from "../theme-switch";
-import { Button } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 import { NavMenu } from "./nav-menu";
 import { NavSheet } from "./nav-sheet";
 
@@ -18,15 +18,15 @@ export function Navbar() {
             className="hidden dark:block"
             src="/logo_white.png"
             alt="Logo"
-            width={28}
-            height={28}
+            width={32}
+            height={32}
           />
           <Image
             className="dark:hidden"
             src="/logo_black.png"
             alt="Logo"
-            width={28}
-            height={28}
+            width={32}
+            height={32}
           />
         </Link>
 
@@ -34,11 +34,12 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <ThemeSwitch />
-          <Button
-            className="hidden lg:inline-flex"
-            nativeButton={false}
-            render={<Link href="/login">Login</Link>}
-          />
+          <Link
+            href="/signup"
+            className={buttonVariants({ variant: "default" })}
+          >
+            Login
+          </Link>
 
           <div className="lg:hidden">
             <NavSheet />
