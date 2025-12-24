@@ -25,6 +25,7 @@ export const authApi = {
       "/auth/register",
       data,
     );
+
     return response.data;
   },
 
@@ -33,6 +34,7 @@ export const authApi = {
       "/auth/login",
       credentials,
     );
+
     return response.data;
   },
 
