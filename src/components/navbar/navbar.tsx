@@ -35,7 +35,7 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <ThemeSwitch />
           <Link
-            href="/signup"
+            href="/login"
             className={buttonVariants({ variant: "default" })}
           >
             Login
