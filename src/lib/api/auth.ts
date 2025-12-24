@@ -15,6 +15,8 @@ type RegisterResponse =
   operations["register"]["responses"][201]["content"]["application/json"];
 type LoginResponse =
   operations["login"]["responses"][200]["content"]["application/json"];
+type LogoutResponse =
+  operations["logout"]["responses"][200]["content"]["application/json"];
 type ActivateResponse =
   operations["activate"]["responses"][200]["content"]["application/json"];
 type ResendActivationResponse =
@@ -40,6 +42,12 @@ export const authApi = {
       "/auth/login",
       credentials,
     );
+
+    return response.data;
+  },
+
+  logout: async (): Promise<LogoutResponse> => {
+    const response = await apiClient.post<LogoutResponse>("/auth/logout");
 
     return response.data;
   },
