@@ -1,8 +1,11 @@
+"use client";
+
 import { IconArrowUpRight } from "@tabler/icons-react";
 import { Variants } from "motion";
-import * as motion from "motion/react-client";
+import { motion, useAnimation, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { buttonVariants } from "../ui/button";
 
 const container = {
@@ -60,6 +63,16 @@ const image: Variants = {
 };
 
 export function HeroSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
+
   return (
     <>
       <div
@@ -72,10 +85,10 @@ export function HeroSection() {
       </div>
 
       <motion.section
+        ref={ref}
         variants={container}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        animate={controls}
         id="home"
         className="overflow-hidden"
       >

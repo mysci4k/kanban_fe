@@ -1,7 +1,10 @@
+"use client";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { IconBolt, IconDeviceMobile, IconLayout } from "@tabler/icons-react";
 import { Variants } from "motion";
-import * as motion from "motion/react-client";
+import { motion, useAnimation, useInView } from "motion/react";
+import { useEffect, useRef } from "react";
 
 const container = {
   hidden: { opacity: 0 },
@@ -60,12 +63,22 @@ const features = [
 ];
 
 export function FeaturesSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
+
   return (
     <motion.section
+      ref={ref}
       variants={container}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
+      animate={controls}
       id="features"
       className="py-16 md:py-32"
     >
