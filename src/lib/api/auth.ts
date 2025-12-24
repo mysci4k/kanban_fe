@@ -7,6 +7,8 @@ type LoginDto = components["schemas"]["LoginDto"];
 type ActivationQueryDto = components["schemas"]["ActivationQueryDto"];
 type ResendActivationQueryDto =
   components["schemas"]["ResendActivationQueryDto"];
+type ForgotPasswordQueryDto = components["schemas"]["ForgotPasswordQueryDto"];
+type ResetPasswordDto = components["schemas"]["ResetPasswordDto"];
 
 // Response types
 type RegisterResponse =
@@ -17,6 +19,10 @@ type ActivateResponse =
   operations["activate"]["responses"][200]["content"]["application/json"];
 type ResendActivationResponse =
   operations["resend_activation"]["responses"][200]["content"]["application/json"];
+type ForgotPasswordResponse =
+  operations["forgot_password"]["responses"][200]["content"]["application/json"];
+type ResetPasswordResponse =
+  operations["reset_password"]["responses"][200]["content"]["application/json"];
 
 // API functions
 export const authApi = {
@@ -59,6 +65,31 @@ export const authApi = {
       {
         params: query,
       },
+    );
+
+    return response.data;
+  },
+
+  forgotPassword: async (
+    query: ForgotPasswordQueryDto,
+  ): Promise<ForgotPasswordResponse> => {
+    const response = await apiClient.post<ForgotPasswordResponse>(
+      "/auth/forgot-password",
+      null,
+      {
+        params: query,
+      },
+    );
+
+    return response.data;
+  },
+
+  resetPassword: async (
+    data: ResetPasswordDto,
+  ): Promise<ResetPasswordResponse> => {
+    const response = await apiClient.post<ResetPasswordResponse>(
+      "/auth/reset-password",
+      data,
     );
 
     return response.data;
