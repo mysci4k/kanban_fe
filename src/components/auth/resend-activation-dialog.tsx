@@ -83,6 +83,7 @@ export function ResendActivationDialog({
           className="space-y-4"
           onSubmit={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             form.handleSubmit();
           }}
         >
