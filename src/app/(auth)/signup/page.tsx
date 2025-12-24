@@ -1,5 +1,6 @@
 "use client";
 
+import { ResendActivationDialog } from "@/components/auth/resend-activation-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -63,7 +64,7 @@ export default function SignupPage() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       const errorMessage = error.response?.data?.message || "Please try again";
-      toast.error("Registartion failed", {
+      toast.error("Registration failed", {
         description: errorMessage,
       });
     },
@@ -80,7 +81,7 @@ export default function SignupPage() {
     validators: {
       onSubmit: formSchema,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: ({ value }) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { passwordConfirm, ...registerData } = value;
       registerMutation.mutate(registerData);
@@ -100,7 +101,9 @@ export default function SignupPage() {
         <div className="p-6">
           <div className="mb-6 text-center">
             <h1 className="mb-1 text-xl font-semibold">Welcome to Kanblast!</h1>
-            <p>Create an account to get started</p>
+            <p className="text-muted-foreground">
+              Create an account to get started
+            </p>
           </div>
 
           <div className="space-y-6">
@@ -120,6 +123,7 @@ export default function SignupPage() {
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
+                          disabled={registerMutation.isPending}
                           type="text"
                           placeholder="First Name"
                           autoComplete="off"
@@ -145,6 +149,7 @@ export default function SignupPage() {
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
+                          disabled={registerMutation.isPending}
                           type="text"
                           placeholder="Last Name"
                           autoComplete="off"
@@ -171,6 +176,7 @@ export default function SignupPage() {
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         aria-invalid={isInvalid}
+                        disabled={registerMutation.isPending}
                         type="email"
                         placeholder="Email"
                         autoComplete="off"
@@ -197,6 +203,7 @@ export default function SignupPage() {
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
+                          disabled={registerMutation.isPending}
                           type={showPassword ? "text" : "password"}
                           placeholder="Password"
                           autoComplete="off"
@@ -231,6 +238,7 @@ export default function SignupPage() {
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
+                          disabled={registerMutation.isPending}
                           type={showPasswordConfirm ? "text" : "password"}
                           placeholder="Password Confirm"
                           autoComplete="off"
@@ -254,18 +262,29 @@ export default function SignupPage() {
               </form.Field>
             </FieldGroup>
 
-            <Button type="submit" form="signupForm" className="w-full">
+            <Button
+              type="submit"
+              form="signupForm"
+              className="w-full"
+              disabled={registerMutation.isPending}
+            >
               Create Account
             </Button>
           </div>
         </div>
 
-        <p className="text-accent-foreground text-center text-sm">
-          Already have an account ?
-          <Button variant="link" className="px-2">
-            <Link href="/login">Sign In</Link>
-          </Button>
-        </p>
+        <div className="-space-y-1 text-center text-sm">
+          <p className="text-accent-foreground">
+            Already have an account?
+            <Button variant="link" className="px-2">
+              <Link href="/login">Sign In</Link>
+            </Button>
+          </p>
+          <p className="text-accent-foreground">
+            Didn&apos;t receive an activation email?
+            <ResendActivationDialog buttonVariant="link" />
+          </p>
+        </div>
       </form>
     </section>
   );
