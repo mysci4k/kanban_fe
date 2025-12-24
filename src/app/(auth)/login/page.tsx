@@ -1,5 +1,7 @@
 "use client";
 
+import { ForgotPasswordDialog } from "@/components/auth/forgot-password-dialog";
+import { ResendActivationDialog } from "@/components/auth/resend-activation-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -55,7 +57,7 @@ export default function LoginPage() {
     validators: {
       onSubmit: formSchema,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: ({ value }) => {
       loginMutation.mutate(value);
     },
   });
@@ -73,7 +75,9 @@ export default function LoginPage() {
         <div className="p-6">
           <div className="mb-6 text-center">
             <h1 className="mb-1 text-xl font-semibold">Welcome back!</h1>
-            <p>Login to your Kanblast account</p>
+            <p className="text-muted-foreground">
+              Login to your Kanblast account
+            </p>
           </div>
 
           <div className="space-y-6">
@@ -92,6 +96,7 @@ export default function LoginPage() {
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         aria-invalid={isInvalid}
+                        disabled={loginMutation.isPending}
                         type="email"
                         placeholder="Email"
                         autoComplete="off"
@@ -111,9 +116,7 @@ export default function LoginPage() {
                     <Field data-invalid={isInvalid}>
                       <div className="flex justify-between">
                         <FieldLabel>Password</FieldLabel>
-                        <Button variant="link" size="xs">
-                          <Link href="/forgot-password">Forgot password?</Link>
-                        </Button>
+                        <ForgotPasswordDialog />
                       </div>
                       <InputGroup>
                         <InputGroupInput
@@ -123,6 +126,7 @@ export default function LoginPage() {
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
+                          disabled={loginMutation.isPending}
                           type={showPassword ? "text" : "password"}
                           placeholder="Password"
                           autoComplete="off"
@@ -144,18 +148,29 @@ export default function LoginPage() {
               </form.Field>
             </FieldGroup>
 
-            <Button type="submit" form="loginForm" className="w-full">
+            <Button
+              type="submit"
+              form="loginForm"
+              className="w-full"
+              disabled={loginMutation.isPending}
+            >
               Login
             </Button>
           </div>
         </div>
 
-        <p className="text-accent-foreground text-center text-sm">
-          Don&apos;t have an account ?
-          <Button variant="link" className="px-2">
-            <Link href="/signup">Sign Up</Link>
-          </Button>
-        </p>
+        <div className="-space-y-1 text-center text-sm">
+          <p className="text-accent-foreground">
+            Don&apos;t have an account?
+            <Button variant="link" className="px-2">
+              <Link href="/signup">Sign Up</Link>
+            </Button>
+          </p>
+          <p className="text-accent-foreground">
+            Didn&apos;t receive an activation email?
+            <ResendActivationDialog buttonVariant="link" />
+          </p>
+        </div>
       </form>
     </section>
   );
