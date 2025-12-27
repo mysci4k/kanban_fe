@@ -46,6 +46,27 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/auth/renew": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * @description ***PROTECTED ENDPOINT***
+     *
+     *     Renews the current user session by extending the session expiration time. The session cookie's validity is refreshed, allowing the user to remain logged in without re-authenticating.
+     */
+    post: operations["renew"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/auth/logout": {
     parameters: {
       query?: never;
@@ -921,6 +942,35 @@ export interface operations {
       };
       /** @description Internal server error - Failed to create user session */
       500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApplicationErrorSchema"];
+        };
+      };
+    };
+  };
+  renew: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK - Session renewed successfully */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApiResponseSchema_String"];
+        };
+      };
+      /** @description Unauthorized - No active session or session has expired */
+      401: {
         headers: {
           [name: string]: unknown;
         };
