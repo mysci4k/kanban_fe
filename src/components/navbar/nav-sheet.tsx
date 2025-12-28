@@ -43,14 +43,6 @@ export function NavSheet() {
           </SheetTitle>
         </SheetHeader>
         <NavMenu orientation="vertical" />
-        <SheetFooter>
-          <Link
-            href="/signup"
-            className={buttonVariants({ variant: "default" })}
-          >
-            Login
-          </Link>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
