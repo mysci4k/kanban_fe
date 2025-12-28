@@ -16,7 +16,6 @@ export function ThemeSwitch() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="hover:cursor-pointer"
         render={
           <Button variant="ghost" size="icon">
             <IconSun className="size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
@@ -26,22 +25,13 @@ export function ThemeSwitch() {
         }
       />
       <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          className="hover:cursor-pointer"
-          onClick={() => setTheme("light")}
-        >
+        <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem
-          className="hover:cursor-pointer"
-          onClick={() => setTheme("dark")}
-        >
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem
-          className="hover:cursor-pointer"
-          onClick={() => setTheme("system")}
-        >
+        <DropdownMenuItem onClick={() => setTheme("system")}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
