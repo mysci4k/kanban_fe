@@ -1,11 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "../providers/auth-provider";
 import { ThemeSwitch } from "../theme-switch";
 import { buttonVariants } from "../ui/button";
 import { NavMenu } from "./nav-menu";
 import { NavSheet } from "./nav-sheet";
+import { NavUserMenu } from "./nav-user";
 
 export function Navbar() {
+  const { isAuthenticated, user } = useAuth();
+
   return (
     <nav className="bg-background/75 sticky top-0 z-20 h-16 border-b border-dashed backdrop-blur">
       <div className="m-auto flex h-full max-w-5xl items-center justify-between px-6">
@@ -34,12 +40,17 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <ThemeSwitch />
-          <Link
-            href="/login"
-            className={buttonVariants({ variant: "default" })}
-          >
-            Login
-          </Link>
+
+          {isAuthenticated && user ? (
+            <NavUserMenu user={user} />
+          ) : (
+            <Link
+              href="/login"
+              className={buttonVariants({ variant: "default" })}
+            >
+              Login
+            </Link>
+          )}
 
           <div className="lg:hidden">
             <NavSheet />
