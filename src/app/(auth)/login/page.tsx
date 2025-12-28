@@ -2,6 +2,7 @@
 
 import { ForgotPasswordDialog } from "@/components/auth/forgot-password-dialog";
 import { ResendActivationDialog } from "@/components/auth/resend-activation-dialog";
+import { useAuth } from "@/components/providers/auth-provider";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -16,10 +17,8 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { authApi } from "@/lib/api/auth";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
-import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -32,22 +31,8 @@ const formSchema = z.object({
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-
-  const loginMutation = useMutation({
-    mutationFn: authApi.login,
-    onSuccess: () => {
-      toast.success("Logged in successfully!", {
-        description: "Welcome back",
-      });
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
-      const errorMessage = error.response?.data?.message || "Please try again";
-      toast.error("Login failed", {
-        description: errorMessage,
-      });
-    },
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login } = useAuth();
 
   const form = useForm({
     defaultValues: {
@@ -57,8 +42,23 @@ export default function LoginPage() {
     validators: {
       onSubmit: formSchema,
     },
-    onSubmit: ({ value }) => {
-      loginMutation.mutate(value);
+    onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
+      try {
+        await login(value.email, value.password);
+        toast.success("Logged in successfully!", {
+          description: "Welcome back",
+        });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message || "Please try again";
+        toast.error("Login failed", {
+          description: errorMessage,
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     },
   });
 
@@ -96,7 +96,7 @@ export default function LoginPage() {
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         aria-invalid={isInvalid}
-                        disabled={loginMutation.isPending}
+                        disabled={isSubmitting}
                         type="email"
                         placeholder="Email"
                         autoComplete="off"
@@ -126,7 +126,7 @@ export default function LoginPage() {
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
-                          disabled={loginMutation.isPending}
+                          disabled={isSubmitting}
                           type={showPassword ? "text" : "password"}
                           placeholder="Password"
                           autoComplete="off"
@@ -152,7 +152,7 @@ export default function LoginPage() {
               type="submit"
               form="loginForm"
               className="w-full"
-              disabled={loginMutation.isPending}
+              disabled={isSubmitting}
             >
               Login
             </Button>
