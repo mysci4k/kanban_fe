@@ -1,21 +1,21 @@
 "use client";
 
-import { ResendActivationDialog } from "@/components/auth/resend-activation-dialog";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+} from "@/shared/components/ui/field";
+import { Input } from "@/shared/components/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/components/ui/input-group";
-import { authApi } from "@/lib/api/auth";
+} from "@/shared/components/ui/input-group";
+import { authApi } from "@/features/auth/api/auth";
+import { ResendActivationDialog } from "@/features/auth/components/resend-activation-dialog";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";

@@ -1,22 +1,22 @@
 "use client";
 
-import { ForgotPasswordDialog } from "@/components/auth/forgot-password-dialog";
-import { ResendActivationDialog } from "@/components/auth/resend-activation-dialog";
-import { useAuth } from "@/components/providers/auth-provider";
-import { Button } from "@/components/ui/button";
+import { ForgotPasswordDialog } from "@/features/auth/components/forgot-password-dialog";
+import { ResendActivationDialog } from "@/features/auth/components/resend-activation-dialog";
+import { useAuth } from "@/features/auth/providers/auth-provider";
+import { Button } from "@/shared/components/ui/button";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+} from "@/shared/components/ui/field";
+import { Input } from "@/shared/components/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/components/ui/input-group";
+} from "@/shared/components/ui/input-group";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import Link from "next/link";

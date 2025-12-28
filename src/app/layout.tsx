@@ -1,9 +1,9 @@
-import { Navbar } from "@/components/navbar/navbar";
-import { AuthProvider } from "@/components/providers/auth-provider";
-import { QueryProvider } from "@/components/providers/query-provider";
-import { ThemeProvider } from "@/components/providers/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
-import { getSession } from "@/lib/auth/session";
+import { getSession } from "@/features/auth/lib/session";
+import { AuthProvider } from "@/features/auth/providers/auth-provider";
+import { Navbar } from "@/shared/components/layout/navbar/navbar";
+import { Toaster } from "@/shared/components/ui/sonner";
+import { QueryProvider } from "@/shared/providers/query-provider";
+import { ThemeProvider } from "@/shared/providers/theme-provider";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";

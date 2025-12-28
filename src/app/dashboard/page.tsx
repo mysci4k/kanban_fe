@@ -1,4 +1,4 @@
-import { getSession } from "@/lib/auth/session";
+import { getSession } from "@/features/auth/lib/session";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {

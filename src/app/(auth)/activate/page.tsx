@@ -1,9 +1,9 @@
 "use client";
 
-import { ResendActivationDialog } from "@/components/auth/resend-activation-dialog";
-import { buttonVariants } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
-import { authApi } from "@/lib/api/auth";
+import { authApi } from "@/features/auth/api/auth";
+import { ResendActivationDialog } from "@/features/auth/components/resend-activation-dialog";
+import { buttonVariants } from "@/shared/components/ui/button";
+import { Spinner } from "@/shared/components/ui/spinner";
 import { IconCircleCheck, IconCircleX } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
