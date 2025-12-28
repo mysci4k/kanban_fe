@@ -1,7 +1,9 @@
 import { Navbar } from "@/components/navbar/navbar";
+import { AuthProvider } from "@/components/providers/auth-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { getSession } from "@/lib/auth/session";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
@@ -34,11 +36,13 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialSession = await getSession();
+
   return (
     <html
       lang="en"
@@ -55,9 +59,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
-            {children}
-            <Toaster />
+            <AuthProvider initialSession={initialSession}>
+              <Navbar />
+              {children}
+              <Toaster />
+            </AuthProvider>
           </ThemeProvider>
         </QueryProvider>
       </body>
