@@ -4,10 +4,10 @@ import { HeroSection } from "@/features/landing/components/hero-section";
 
 export default function Page() {
   return (
-    <main>
+    <>
       <HeroSection />
       <FeaturesSection />
       <FooterSection />
-    </main>
+    </>
   );
 }
