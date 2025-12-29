@@ -61,7 +61,7 @@ export default async function RootLayout({
           >
             <AuthProvider initialSession={initialSession}>
               <Navbar />
-              {children}
+              <main>{children}</main>
               <Toaster />
             </AuthProvider>
           </ThemeProvider>
