@@ -5,13 +5,7 @@ import { operations } from "@/shared/api/api-types";
 import apiClient from "@/shared/api/client";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { AuthContextType, SessionState, User } from "../types/types";
 
 type LoginResponse =
@@ -19,7 +13,7 @@ type LoginResponse =
 type ProfileResponse =
   operations["get_user_profile"]["responses"]["200"]["content"]["application/json"];
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -135,13 +129,4 @@ export function AuthProvider({ children, initialSession }: AuthProviderProps) {
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-export function useAuth(): AuthContextType {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-
-  return context;
 }
