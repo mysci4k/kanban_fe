@@ -1,5 +1,9 @@
-import { Navbar } from "@/components/navbar/navbar";
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import { getSession } from "@/features/auth/lib/session";
+import { AuthProvider } from "@/features/auth/providers/auth-provider";
+import { Navbar } from "@/shared/components/layout/navbar/navbar";
+import { Toaster } from "@/shared/components/ui/sonner";
+import { QueryProvider } from "@/shared/providers/query-provider";
+import { ThemeProvider } from "@/shared/providers/theme-provider";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
@@ -32,11 +36,13 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialSession = await getSession();
+
   return (
     <html
       lang="en"
@@ -46,15 +52,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          {children}
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AuthProvider initialSession={initialSession}>
+              <Navbar />
+              <main>{children}</main>
+              <Toaster />
+            </AuthProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );
