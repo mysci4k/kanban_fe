@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/features/auth/providers/auth-provider";
+import { useAuth } from "@/features/auth/hooks/use-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "../../ui/button";

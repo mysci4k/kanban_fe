@@ -2,7 +2,7 @@
 
 import { ForgotPasswordDialog } from "@/features/auth/components/forgot-password-dialog";
 import { ResendActivationDialog } from "@/features/auth/components/resend-activation-dialog";
-import { useAuth } from "@/features/auth/providers/auth-provider";
+import { useAuth } from "@/features/auth/hooks/use-auth";
 import { Button } from "@/shared/components/ui/button";
 import {
   Field,

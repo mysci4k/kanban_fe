@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/features/auth/providers/auth-provider";
+import { useAuth } from "@/features/auth/hooks/use-auth";
 import { User } from "@/features/auth/types/types";
 import { IconLayoutKanban, IconLogout } from "@tabler/icons-react";
 import Link from "next/link";

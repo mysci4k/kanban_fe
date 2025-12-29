@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
-import { useAuth } from "../providers/auth-provider";
+import { useAuth } from "../hooks/use-auth";
 
 interface ProtectedRouteProps {
   children: ReactNode;

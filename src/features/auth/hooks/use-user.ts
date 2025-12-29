@@ -4,7 +4,7 @@ import { endpoints } from "@/config/env";
 import { operations } from "@/shared/api/api-types";
 import apiClient from "@/shared/api/client";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../providers/auth-provider";
+import { useAuth } from "./use-auth";
 
 type ProfileResponse =
   operations["get_user_profile"]["responses"]["200"]["content"]["application/json"];
