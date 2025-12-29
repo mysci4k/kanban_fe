@@ -14,38 +14,18 @@ import {
 import { Field, FieldError, FieldLabel } from "@/shared/components/ui/field";
 import { Input } from "@/shared/components/ui/input";
 import { useForm } from "@tanstack/react-form";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import * as z from "zod";
-import { authApi } from "../api/auth";
-
-const formSchema = z.object({
-  email: z.email("Invalid email format"),
-});
+import { useForgotPassword } from "../hooks/use-forgot-password";
+import { emailSchema } from "../schemas/email.schema";
 
 export function ForgotPasswordDialog() {
-  const forgotMutation = useMutation({
-    mutationFn: authApi.forgotPassword,
-    onSuccess: () => {
-      toast.success("Password reset email sent!", {
-        description: "Please check your inbox for the password reset link",
-      });
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
-      const errorMessage = error.response?.data?.message || "Please try again";
-      toast.error("Failed to send password reset email", {
-        description: errorMessage,
-      });
-    },
-  });
+  const forgotMutation = useForgotPassword();
 
   const form = useForm({
     defaultValues: {
       email: "",
     },
     validators: {
-      onSubmit: formSchema,
+      onSubmit: emailSchema,
     },
     onSubmit: ({ value }) => {
       forgotMutation.mutate({ email: value.email });

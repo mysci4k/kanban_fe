@@ -14,14 +14,8 @@ import {
 import { Field, FieldError, FieldLabel } from "@/shared/components/ui/field";
 import { Input } from "@/shared/components/ui/input";
 import { useForm } from "@tanstack/react-form";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import * as z from "zod";
-import { authApi } from "../api/auth";
-
-const formSchema = z.object({
-  email: z.email("Invalid email format"),
-});
+import { useResendActivation } from "../hooks/use-resend-activation";
+import { emailSchema } from "../schemas/email.schema";
 
 export function ResendActivationDialog({
   buttonVariant = "default",
@@ -34,28 +28,14 @@ export function ResendActivationDialog({
     | "destructive"
     | "link";
 }) {
-  const resendMutation = useMutation({
-    mutationFn: authApi.resendActivation,
-    onSuccess: () => {
-      toast.success("Activation email sent!", {
-        description: "Please check your inbox for the activation link",
-      });
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
-      const errorMessage = error.response?.data?.message || "Please try again";
-      toast.error("Failed to resend activation email", {
-        description: errorMessage,
-      });
-    },
-  });
+  const resendMutation = useResendActivation();
 
   const form = useForm({
     defaultValues: {
       email: "",
     },
     validators: {
-      onSubmit: formSchema,
+      onSubmit: emailSchema,
     },
     onSubmit: ({ value }) => {
       resendMutation.mutate({ email: value.email });
