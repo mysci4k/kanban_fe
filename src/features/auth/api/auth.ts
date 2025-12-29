@@ -4,7 +4,6 @@ import apiClient from "@/shared/api/client";
 
 // Schema types
 type CreateUserDto = components["schemas"]["CreateUserDto"];
-type LoginDto = components["schemas"]["LoginDto"];
 type ActivationQueryDto = components["schemas"]["ActivationQueryDto"];
 type ResendActivationQueryDto =
   components["schemas"]["ResendActivationQueryDto"];
@@ -14,10 +13,6 @@ type ResetPasswordDto = components["schemas"]["ResetPasswordDto"];
 // Response types
 type RegisterResponse =
   operations["register"]["responses"][201]["content"]["application/json"];
-type LoginResponse =
-  operations["login"]["responses"][200]["content"]["application/json"];
-type LogoutResponse =
-  operations["logout"]["responses"][200]["content"]["application/json"];
 type ActivateResponse =
   operations["activate"]["responses"][200]["content"]["application/json"];
 type ResendActivationResponse =
@@ -33,23 +28,6 @@ export const authApi = {
     const response = await apiClient.post<RegisterResponse>(
       endpoints.auth.register,
       data,
-    );
-
-    return response.data;
-  },
-
-  login: async (credentials: LoginDto): Promise<LoginResponse> => {
-    const response = await apiClient.post<LoginResponse>(
-      endpoints.auth.login,
-      credentials,
-    );
-
-    return response.data;
-  },
-
-  logout: async (): Promise<LogoutResponse> => {
-    const response = await apiClient.post<LogoutResponse>(
-      endpoints.auth.logout,
     );
 
     return response.data;
