@@ -1,7 +1,8 @@
+import { endpoints, env } from "@/config/env";
 import axios from "axios";
 
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api",
+  baseURL: env.API_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -17,7 +18,7 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        await apiClient.post("/auth/renew");
+        await apiClient.post(endpoints.auth.renew);
 
         return apiClient(originalRequest);
       } catch (renewError) {

@@ -1,3 +1,4 @@
+import { endpoints } from "@/config/env";
 import { components, operations } from "@/shared/api/api-types";
 import apiClient from "@/shared/api/client";
 
@@ -30,7 +31,7 @@ type ResetPasswordResponse =
 export const authApi = {
   register: async (data: CreateUserDto): Promise<RegisterResponse> => {
     const response = await apiClient.post<RegisterResponse>(
-      "/auth/register",
+      endpoints.auth.register,
       data,
     );
 
@@ -39,7 +40,7 @@ export const authApi = {
 
   login: async (credentials: LoginDto): Promise<LoginResponse> => {
     const response = await apiClient.post<LoginResponse>(
-      "/auth/login",
+      endpoints.auth.login,
       credentials,
     );
 
@@ -47,14 +48,16 @@ export const authApi = {
   },
 
   logout: async (): Promise<LogoutResponse> => {
-    const response = await apiClient.post<LogoutResponse>("/auth/logout");
+    const response = await apiClient.post<LogoutResponse>(
+      endpoints.auth.logout,
+    );
 
     return response.data;
   },
 
   activate: async (query: ActivationQueryDto): Promise<ActivateResponse> => {
     const response = await apiClient.post<ActivateResponse>(
-      "/auth/activate",
+      endpoints.auth.activate,
       null,
       {
         params: query,
@@ -68,7 +71,7 @@ export const authApi = {
     query: ResendActivationQueryDto,
   ): Promise<ResendActivationResponse> => {
     const response = await apiClient.post<ResendActivationResponse>(
-      "/auth/resend-activation",
+      endpoints.auth.resendActivation,
       null,
       {
         params: query,
@@ -82,7 +85,7 @@ export const authApi = {
     query: ForgotPasswordQueryDto,
   ): Promise<ForgotPasswordResponse> => {
     const response = await apiClient.post<ForgotPasswordResponse>(
-      "/auth/forgot-password",
+      endpoints.auth.forgotPassword,
       null,
       {
         params: query,
@@ -96,7 +99,7 @@ export const authApi = {
     data: ResetPasswordDto,
   ): Promise<ResetPasswordResponse> => {
     const response = await apiClient.post<ResetPasswordResponse>(
-      "/auth/reset-password",
+      endpoints.auth.resetPassword,
       data,
     );
 

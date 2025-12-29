@@ -1,16 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const SESSION_COOKIE_NAME = "user-session";
-
-const protectedRoutes = ["/dashboard"];
-const authRoutes = ["/login", "/signup"];
+import { env, routes } from "./config/env";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const sessionCookie = request.cookies.get(SESSION_COOKIE_NAME);
+  const sessionCookie = request.cookies.get(env.SESSION_COOKIE_NAME);
   const isAuthenticated = !!sessionCookie;
 
-  const isProtectedRoute = protectedRoutes.some(
+  const isProtectedRoute = routes.protected.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`),
   );
 
@@ -21,7 +17,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  const isAuthRoute = authRoutes.some(
+  const isAuthRoute = routes.auth.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`),
   );
 

@@ -1,29 +1,27 @@
+import { endpoints, env } from "@/config/env";
 import { cookies } from "next/headers";
 import { SessionState, User } from "../types/types";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api";
-const SESSION_COOKIE_NAME = "user-session";
 
 export async function getSessionCookie(): Promise<string | undefined> {
   const cookieStore = await cookies();
 
-  return cookieStore.get(SESSION_COOKIE_NAME)?.value;
+  return cookieStore.get(env.SESSION_COOKIE_NAME)?.value;
 }
 
 export async function getSession(): Promise<SessionState> {
   const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME);
+  const sessionCookie = cookieStore.get(env.SESSION_COOKIE_NAME);
 
   if (!sessionCookie) {
     return { user: null, isAuthenticated: false };
   }
 
   try {
-    const response = await fetch(`${API_URL}/user/profile`, {
+    const response = await fetch(`${env.API_URL}${endpoints.user.profile}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Cookie: `${SESSION_COOKIE_NAME}=${sessionCookie.value}`,
+        Cookie: `${env.SESSION_COOKIE_NAME}=${sessionCookie.value}`,
       },
       cache: "no-store",
     });

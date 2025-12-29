@@ -1,5 +1,6 @@
 "use client";
 
+import { endpoints } from "@/config/env";
 import { operations } from "@/shared/api/api-types";
 import apiClient from "@/shared/api/client";
 import { useQuery } from "@tanstack/react-query";
@@ -16,7 +17,9 @@ export function useUser() {
   return useQuery({
     queryKey: USER_QUERY_KEY,
     queryFn: async () => {
-      const response = await apiClient.get<ProfileResponse>("/user/profile");
+      const response = await apiClient.get<ProfileResponse>(
+        endpoints.user.profile,
+      );
 
       return response.data.data;
     },

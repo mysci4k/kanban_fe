@@ -1,5 +1,6 @@
 "use client";
 
+import { endpoints } from "@/config/env";
 import { operations } from "@/shared/api/api-types";
 import apiClient from "@/shared/api/client";
 import { useQueryClient } from "@tanstack/react-query";
@@ -35,7 +36,9 @@ export function AuthProvider({ children, initialSession }: AuthProviderProps) {
 
   const fetchUser = useCallback(async (): Promise<User | null> => {
     try {
-      const response = await apiClient.get<ProfileResponse>("/user/profile");
+      const response = await apiClient.get<ProfileResponse>(
+        endpoints.user.profile,
+      );
 
       return response.data.data ?? null;
     } catch {
@@ -60,10 +63,13 @@ export function AuthProvider({ children, initialSession }: AuthProviderProps) {
 
   const login = useCallback(
     async (email: string, password: string): Promise<void> => {
-      const response = await apiClient.post<LoginResponse>("/auth/login", {
-        email,
-        password,
-      });
+      const response = await apiClient.post<LoginResponse>(
+        endpoints.auth.login,
+        {
+          email,
+          password,
+        },
+      );
 
       const loggedInUser = response.data.data;
       if (loggedInUser) {
@@ -82,7 +88,7 @@ export function AuthProvider({ children, initialSession }: AuthProviderProps) {
 
   const logout = useCallback(async (): Promise<void> => {
     try {
-      await apiClient.post("/auth/logout");
+      await apiClient.post(endpoints.auth.logout);
     } catch (error) {
       console.error("Logout failed: ", error);
     } finally {
@@ -95,7 +101,7 @@ export function AuthProvider({ children, initialSession }: AuthProviderProps) {
 
   const refreshSession = useCallback(async (): Promise<void> => {
     try {
-      await apiClient.post("/auth/renew");
+      await apiClient.post(endpoints.auth.renew);
 
       const currentUser = await fetchUser();
       setUser(currentUser);
