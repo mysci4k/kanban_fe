@@ -1,3 +1,5 @@
+import logoBlack from "@/public/logo_black.png";
+import logoWhite from "@/public/logo_white.png";
 import { IconMenu } from "@tabler/icons-react";
 import Image from "next/image";
 import { Button } from "../../ui/button";
@@ -25,19 +27,21 @@ export function NavSheet() {
           <SheetTitle className="flex items-center space-x-2">
             <Image
               className="hidden dark:block"
-              src="/logo_white.png"
+              src={logoWhite}
               alt="Logo"
               width={28}
               height={28}
+              priority
             />
             <Image
               className="dark:hidden"
-              src="/logo_black.png"
+              src={logoBlack}
               alt="Logo"
               width={28}
               height={28}
+              priority
             />
-            Kanblast
+            <span>Kanblast</span>
           </SheetTitle>
         </SheetHeader>
         <NavMenu orientation="vertical" />
