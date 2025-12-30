@@ -22,7 +22,7 @@ export function proxy(request: NextRequest) {
   );
 
   if (isAuthRoute && isAuthenticated) {
-    const dashboardUrl = new URL("/dashboard", request.url);
+    const dashboardUrl = new URL("/app", request.url);
 
     return NextResponse.redirect(dashboardUrl);
   }
