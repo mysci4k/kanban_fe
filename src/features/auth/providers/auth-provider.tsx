@@ -72,7 +72,7 @@ export function AuthProvider({ children, initialSession }: AuthProviderProps) {
         queryClient.clear();
 
         const params = new URLSearchParams(window.location.search);
-        const callbackUrl = params.get("redirect") || "/dashboard";
+        const callbackUrl = params.get("redirect") || "/app";
 
         router.push(callbackUrl);
       }
