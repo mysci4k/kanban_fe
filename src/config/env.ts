@@ -8,7 +8,7 @@ export const env = {
 } as const;
 
 export const routes = {
-  protected: ["/dashboard"],
+  protected: ["/app"],
   auth: ["/login", "/signup"],
 } as const;
 
