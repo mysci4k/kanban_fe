@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/features/auth/hooks/use-auth";
 import { User } from "@/features/auth/types/types";
-import { IconLayoutKanban, IconLogout } from "@tabler/icons-react";
+import { IconHome, IconLogout } from "@tabler/icons-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "../../ui/avatar";
 import { Button } from "../../ui/button";
@@ -43,19 +43,19 @@ export function NavUserMenu({ user }: NavUserMenuProps) {
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuGroup>
           <DropdownMenuLabel>
-            <div className="flex flex-col space-y-1">
-              <p className="text-foreground text-sm">
-                {user.firstName} {user.lastName}
-              </p>
-              <p className="text-muted-foreground">{user.email}</p>
+            <div className="grid flex-1 text-left text-sm leading-tight">
+              <span className="text-foreground truncate font-medium">
+                {user.firstName + " " + user.lastName}
+              </span>
+              <span className="truncate text-xs">{user.email}</span>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             render={
-              <Link href="/dashboard">
-                <IconLayoutKanban />
-                Dashboard
+              <Link href="/app">
+                <IconHome />
+                Application
               </Link>
             }
           />

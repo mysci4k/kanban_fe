@@ -1,6 +1,5 @@
 import { getSession } from "@/features/auth/lib/session";
 import { AuthProvider } from "@/features/auth/providers/auth-provider";
-import { Navbar } from "@/shared/components/layout/navbar/navbar";
 import { Toaster } from "@/shared/components/ui/sonner";
 import { QueryProvider } from "@/shared/providers/query-provider";
 import { ThemeProvider } from "@/shared/providers/theme-provider";
@@ -60,8 +59,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <AuthProvider initialSession={initialSession}>
-              <Navbar />
-              <main>{children}</main>
+              {children}
               <Toaster />
             </AuthProvider>
           </ThemeProvider>

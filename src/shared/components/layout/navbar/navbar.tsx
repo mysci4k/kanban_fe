@@ -1,6 +1,8 @@
 "use client";
 
 import { useAuth } from "@/features/auth/hooks/use-auth";
+import logoBlack from "@/public/logo_black.png";
+import logoWhite from "@/public/logo_white.png";
 import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "../../ui/button";
@@ -22,17 +24,19 @@ export function Navbar() {
         >
           <Image
             className="hidden dark:block"
-            src="/logo_white.png"
+            src={logoWhite}
             alt="Logo"
             width={32}
             height={32}
+            priority
           />
           <Image
             className="dark:hidden"
-            src="/logo_black.png"
+            src={logoBlack}
             alt="Logo"
             width={32}
             height={32}
+            priority
           />
         </Link>
 
