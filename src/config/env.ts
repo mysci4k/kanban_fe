@@ -26,4 +26,8 @@ export const endpoints = {
   user: {
     profile: "/user/profile",
   },
+  board: {
+    list: "/board/",
+    create: "/board/",
+  },
 } as const;
