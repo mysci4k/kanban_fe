@@ -1,21 +1,9 @@
-import { getSession } from "@/features/auth/lib/session";
-import { redirect } from "next/navigation";
+import { BoardList } from "@/features/kanban/components/board/board-list";
 
-export default async function DashboardPage() {
-  const session = await getSession();
-
-  if (!session.isAuthenticated) {
-    redirect("/login");
-  }
-
-  const { user } = session;
-
+export default function DashboardPage() {
   return (
-    <main className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Welcome back, {user.firstName}!</h1>
-        <p className="text-muted-foreground">{user.email}</p>
-      </div>
+    <main className="mx-auto px-4 py-4 group-has-data-[collapsible=icon]/sidebar-wrapper:px-0">
+      <BoardList />
     </main>
   );
 }
