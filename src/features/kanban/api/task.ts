@@ -4,6 +4,7 @@ import {
   CreateTaskDto,
   CreateTaskResponse,
   DeleteTaskResponse,
+  GetBoardTasksResponse,
   GetColumnTasksResponse,
   GetTaskResponse,
   MoveTaskResponse,
@@ -12,7 +13,15 @@ import {
 } from "../types/task.types";
 
 export const taskApi = {
-  getTasks: async (columnId: string): Promise<GetColumnTasksResponse> => {
+  getBoardTasks: async (boardId: string): Promise<GetBoardTasksResponse> => {
+    const response = await apiClient.get<GetBoardTasksResponse>(
+      endpoints.task.getByBoard(boardId),
+    );
+
+    return response.data;
+  },
+
+  getColumnTasks: async (columnId: string): Promise<GetColumnTasksResponse> => {
     const response = await apiClient.get<GetColumnTasksResponse>(
       endpoints.task.getByColumn(columnId),
     );
