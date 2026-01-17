@@ -1,5 +1,3 @@
-import { get } from "node:https";
-
 export const env = {
   API_URL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api",
   WS_URL: process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8080/api",
@@ -35,6 +33,12 @@ export const endpoints = {
     get: (boardId: string) => `/board/${boardId}`,
     update: (boardId: string) => `/board/${boardId}`,
     delete: (boardId: string) => `/board/${boardId}`,
+    members: (boardId: string) => `/board/${boardId}/members`,
+  },
+  member: {
+    add: "/board/member",
+    updateRole: "/board/member",
+    remove: "/board/member",
   },
   column: {
     create: "/column/",
