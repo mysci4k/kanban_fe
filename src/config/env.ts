@@ -1,5 +1,6 @@
 export const env = {
   API_URL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api",
+  WS_URL: process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8080/api",
 
   SESSION_COOKIE_NAME: "user-session",
 
@@ -50,5 +51,8 @@ export const endpoints = {
     getByColumn: (columnId: string) => `/task/column/${columnId}`,
     move: (taskId: string, columnId: string, position: number) =>
       `/task/${taskId}/move/${columnId}/${position}`,
+  },
+  ws: {
+    board: (boardId: string) => `/ws/board/${boardId}`,
   },
 } as const;
