@@ -250,6 +250,27 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/board/{boardId}/members": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * @description ***PROTECTED ENDPOINT***
+     *
+     *     Retrieves a list of all members of a specific board. Only board members can access this endpoint.
+     */
+    get: operations["get_board_members"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/board/member": {
     parameters: {
       query?: never;
@@ -448,6 +469,27 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/task/board/{boardId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * @description ***PROTECTED ENDPOINT***
+     *
+     *     Retrieves all tasks for a specific board across all columns, ordered by column and position. User must be a member of the board to access this endpoint.
+     */
+    get: operations["get_board_tasks"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/task/{taskId}/move/{columnId}/{position}": {
     parameters: {
       query?: never;
@@ -631,6 +673,28 @@ export interface components {
         description?: string | null;
         /** Format: uuid */
         ownerId: string;
+        /** Format: date-time */
+        createdAt: string;
+        /** Format: date-time */
+        updatedAt: string;
+      }[];
+      /** Format: int64 */
+      rowsAffected?: number | null;
+      /** Format: int64 */
+      page?: number | null;
+      /** Format: int64 */
+      totalPages?: number | null;
+    };
+    ApiResponseSchema_Vec_BoardMemberDto: {
+      message: string;
+      data?: {
+        /** Format: uuid */
+        id: string;
+        /** Format: uuid */
+        boardId: string;
+        /** Format: uuid */
+        userId: string;
+        role: components["schemas"]["BoardMemberRoleEnum"];
         /** Format: date-time */
         createdAt: string;
         /** Format: date-time */
@@ -1547,6 +1611,65 @@ export interface operations {
       };
     };
   };
+  get_board_members: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Unique identifier of the board */
+        boardId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK - Board members retrieved successfully */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApiResponseSchema_Vec_BoardMemberDto"];
+        };
+      };
+      /** @description Unauthorized - No active session or session has expired */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApplicationErrorSchema"];
+        };
+      };
+      /** @description Forbidden - User doesn't have access to this board */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApplicationErrorSchema"];
+        };
+      };
+      /** @description Not found - Board with the given ID not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApplicationErrorSchema"];
+        };
+      };
+      /** @description Internal server error - Failed to retrieve board members */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApplicationErrorSchema"];
+        };
+      };
+    };
+  };
   update_board_member_role: {
     parameters: {
       query?: never;
@@ -2432,6 +2555,65 @@ export interface operations {
         };
       };
       /** @description Not Found - Column with the given ID not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApplicationErrorSchema"];
+        };
+      };
+      /** @description Internal Server Error - Failed to retrieve tasks */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApplicationErrorSchema"];
+        };
+      };
+    };
+  };
+  get_board_tasks: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Unique identifier of the board */
+        boardId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK - Tasks retrieved successfully */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApiResponseSchema_Vec_TaskDto"];
+        };
+      };
+      /** @description Unauthorized - No active session or session has expired */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApplicationErrorSchema"];
+        };
+      };
+      /** @description Forbidden - User doesn't have access to this board */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ApplicationErrorSchema"];
+        };
+      };
+      /** @description Not Found - Board with the given ID not found */
       404: {
         headers: {
           [name: string]: unknown;
