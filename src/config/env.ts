@@ -33,4 +33,13 @@ export const endpoints = {
     update: (boardId: string) => `/board/${boardId}`,
     delete: (boardId: string) => `/board/${boardId}`,
   },
+  column: {
+    create: "/column/",
+    get: (columnId: string) => `/column/${columnId}`,
+    update: (columnId: string) => `/column/${columnId}`,
+    delete: (columnId: string) => `/column/${columnId}`,
+    getByBoard: (boardId: string) => `/column/board/${boardId}`,
+    move: (columnId: string, position: number) =>
+      `/column/${columnId}/move/${position}`,
+  },
 } as const;
