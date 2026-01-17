@@ -29,5 +29,8 @@ export const endpoints = {
   board: {
     list: "/board/",
     create: "/board/",
+    get: (boardId: string) => `/board/${boardId}`,
+    update: (boardId: string) => `/board/${boardId}`,
+    delete: (boardId: string) => `/board/${boardId}`,
   },
 } as const;
