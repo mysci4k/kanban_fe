@@ -42,4 +42,13 @@ export const endpoints = {
     move: (columnId: string, position: number) =>
       `/column/${columnId}/move/${position}`,
   },
+  task: {
+    create: "/task/",
+    get: (taskId: string) => `/task/${taskId}`,
+    update: (taskId: string) => `/task/${taskId}`,
+    delete: (taskId: string) => `/task/${taskId}`,
+    getByColumn: (columnId: string) => `/task/column/${columnId}`,
+    move: (taskId: string, columnId: string, position: number) =>
+      `/task/${taskId}/move/${columnId}/${position}`,
+  },
 } as const;
