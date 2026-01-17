@@ -4,6 +4,8 @@ export type TaskDto = components["schemas"]["TaskDto"];
 export type CreateTaskDto = components["schemas"]["CreateTaskDto"];
 export type UpdateTaskDto = components["schemas"]["UpdateTaskDto"];
 
+export type GetBoardTasksResponse =
+  operations["get_board_tasks"]["responses"][200]["content"]["application/json"];
 export type GetColumnTasksResponse =
   operations["get_column_tasks"]["responses"][200]["content"]["application/json"];
 export type GetTaskResponse =
