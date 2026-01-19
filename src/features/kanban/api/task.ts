@@ -63,7 +63,7 @@ export const taskApi = {
     columnId: string,
     position: number,
   ): Promise<MoveTaskResponse> => {
-    const response = await apiClient.patch<MoveTaskResponse>(
+    const response = await apiClient.put<MoveTaskResponse>(
       endpoints.task.move(taskId, columnId, position),
     );
 

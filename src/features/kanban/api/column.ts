@@ -55,7 +55,7 @@ export const columnApi = {
     columnId: string,
     position: number,
   ): Promise<MoveColumnResponse> => {
-    const response = await apiClient.patch<MoveColumnResponse>(
+    const response = await apiClient.put<MoveColumnResponse>(
       endpoints.column.move(columnId, position),
     );
 
