@@ -1,9 +1,5 @@
 "use client";
 
-import { Spinner } from "@/shared/components/ui/spinner";
-import { useBoards } from "../../hooks/use-boards";
-import { BoardCard } from "./board-card";
-import { CreateBoardDialog } from "./create-board-dialog";
 import {
   Empty,
   EmptyContent,
@@ -12,7 +8,11 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/shared/components/ui/empty";
+import { Spinner } from "@/shared/components/ui/spinner";
 import { IconLayoutKanban } from "@tabler/icons-react";
+import { useBoards } from "../../hooks/board/use-boards";
+import { BoardCard } from "./board-card";
+import { CreateBoardDialog } from "./create-board-dialog";
 
 export function BoardList() {
   const { data: boards = [], isLoading } = useBoards();

@@ -17,7 +17,7 @@ import { Textarea } from "@/shared/components/ui/textarea";
 import { IconPlus } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
-import { useCreateBoard } from "../../hooks/use-create-board";
+import { useCreateBoard } from "../../hooks/board/use-create-board";
 import { createBoardSchema } from "../../schemas/board.schema";
 
 export function CreateBoardDialog() {
