@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { boardApi } from "../api/board";
+import { boardApi } from "../../api/board";
 
 export const BOARDS_QUERY_KEY = ["boards"];
 

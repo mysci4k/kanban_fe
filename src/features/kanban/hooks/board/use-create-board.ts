@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { boardApi } from "../api/board";
-import { CreateBoardDto } from "../types/board.types";
+import { boardApi } from "../../api/board";
+import { CreateBoardDto } from "../../types/board.types";
 import { BOARDS_QUERY_KEY } from "./use-boards";
 
 export function useCreateBoard() {
