@@ -9,8 +9,29 @@ export const createTaskSchema = z.object({
     .string()
     .max(2000, "Description must be at most 2000 characters"),
   tags: z
-    .array(z.string().max(50, "Tag must be at most 50 characters"))
-    .max(5, "A maximum of 5 tags are allowed"),
+    .string()
+    .refine(
+      (value) => {
+        if (!value.trim()) return true;
+        const tags = value
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean);
+        return tags.length <= 5;
+      },
+      { message: "A maximum of 5 tags are allowed" },
+    )
+    .refine(
+      (value) => {
+        if (!value.trim()) return true;
+        const tags = value
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean);
+        return tags.every((tag) => tag.length <= 50);
+      },
+      { message: "Each tag must be at most 50 characters" },
+    ),
   columnId: z.uuidv7("Invalid column ID"),
 });
 
@@ -23,6 +44,27 @@ export const updateTaskSchema = z.object({
     .string()
     .max(2000, "Description must be at most 2000 characters"),
   tags: z
-    .array(z.string().max(50, "Tag must be at most 50 characters"))
-    .max(5, "A maximum of 5 tags are allowed"),
+    .string()
+    .refine(
+      (value) => {
+        if (!value.trim()) return true;
+        const tags = value
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean);
+        return tags.length <= 5;
+      },
+      { message: "A maximum of 5 tags are allowed" },
+    )
+    .refine(
+      (value) => {
+        if (!value.trim()) return true;
+        const tags = value
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean);
+        return tags.every((tag) => tag.length <= 50);
+      },
+      { message: "Each tag must be at most 50 characters" },
+    ),
 });
