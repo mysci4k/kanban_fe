@@ -47,11 +47,14 @@ export function KanbanBoard({ board, columns, tasks }: KanbanBoardProps) {
         <div className="flex h-[calc(100vh-6rem)] max-w-dvh gap-4 group-has-data-[collapsible=icon]/sidebar-wrapper:h-[calc(100vh-5rem)]">
           {columns.map((column) => (
             <SortableColumn key={column.id} id={column.id}>
-              <Column
-                boardId={board.id}
-                column={column}
-                tasks={tasksByColumn[column.id] || []}
-              />
+              {({ dragHandleProps }) => (
+                <Column
+                  boardId={board.id}
+                  column={column}
+                  tasks={tasksByColumn[column.id] || []}
+                  dragHandleProps={dragHandleProps}
+                />
+              )}
             </SortableColumn>
           ))}
 

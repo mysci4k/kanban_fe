@@ -18,9 +18,18 @@ interface ColumnProps {
   boardId: string;
   column: ColumnDto;
   tasks: TaskDto[];
+  dragHandleProps?: {
+    ref: (element: HTMLElement | null) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } & Record<string, any>;
 }
 
-export function Column({ boardId, column, tasks }: ColumnProps) {
+export function Column({
+  boardId,
+  column,
+  tasks,
+  dragHandleProps,
+}: ColumnProps) {
   const [openDialogTaskId, setOpenDialogTaskId] = useState<string | null>(null);
 
   const { setNodeRef, isOver } = useDroppable({
@@ -41,6 +50,7 @@ export function Column({ boardId, column, tasks }: ColumnProps) {
         boardId={boardId}
         column={column}
         taskCount={tasks.length}
+        dragHandleProps={dragHandleProps}
       />
 
       <div

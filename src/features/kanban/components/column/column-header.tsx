@@ -19,7 +19,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
-import { IconDotsVertical, IconEdit, IconTrash } from "@tabler/icons-react";
+import {
+  IconDotsVertical,
+  IconEdit,
+  IconGripVertical,
+  IconTrash,
+} from "@tabler/icons-react";
 import { useState } from "react";
 import { useDeleteColumn } from "../../hooks/column/use-delete-column";
 import { ColumnDto } from "../../types/column.types";
@@ -29,12 +34,17 @@ interface ColumnHeaderProps {
   boardId: string;
   column: ColumnDto;
   taskCount: number;
+  dragHandleProps?: {
+    ref: (element: HTMLElement | null) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } & Record<string, any>;
 }
 
 export function ColumnHeader({
   boardId,
   column,
   taskCount,
+  dragHandleProps,
 }: ColumnHeaderProps) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -48,10 +58,18 @@ export function ColumnHeader({
   return (
     <div className="flex h-12 items-center justify-between border-b p-3">
       <div className="mr-2 flex items-center truncate">
+        <button
+          type="button"
+          className="text-muted-foreground hover:text-foreground mr-1 cursor-grab touch-none active:cursor-grabbing"
+          {...dragHandleProps}
+        >
+          <IconGripVertical size={18} />
+        </button>
+
         <h3 className="text-sm font-medium">{column.name}</h3>
       </div>
 
-      <div className="flex items-center gap-1">
+      <div className="flex items-center">
         <span className="bg-muted text-muted-foreground rounded-full px-2 py-0.5 text-xs">
           {taskCount}
         </span>
